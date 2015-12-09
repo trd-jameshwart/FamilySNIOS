@@ -8,5 +8,5 @@
 
 import Foundation
 struct Globals {
-   static var API_URL = "http://family_sns.timeriverd.local"
+   static var API_URL = "http://192.168.1.29/FamilySNWEB"
 }
