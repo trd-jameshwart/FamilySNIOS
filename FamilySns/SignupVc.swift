@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SwiftyJSON
 
 class SignupVc: UIViewController {
 
@@ -25,7 +25,15 @@ class SignupVc: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    func showAlertView(title: String, message:String){
+        let alertView:UIAlertController = UIAlertController()
+        alertView.title = title
+        alertView.message = message
+        alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil))
+        self.presentViewController(alertView, animated: true, completion: nil)
+    }
+
     @IBAction func signupTapped(sender: AnyObject) {
     
         let email: NSString = txtEmail.text! as NSString
@@ -35,20 +43,12 @@ class SignupVc: UIViewController {
         
 
         if(email.isEqualToString("") || password.isEqualToString("")){
-            let alertView:UIAlertController = UIAlertController()
-            alertView.title = "Signup failed"
-            alertView.message = "Please enter email and password."
-            alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:nil))
-            
-            self.presentViewController(alertView, animated: true, completion: nil)
+
+            self.showAlertView("Sigup failed", message: "Please enter email and password.")
             
         }else if(!password.isEqual(confirmPassword)){
-            let alertView:UIAlertController = UIAlertController()
-            alertView.title = "Signup failed"
-            alertView.message = "Password don't match."
-            alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alertView, animated: true, completion: nil)
-            
+
+            self.showAlertView("Signup failed", message: "Password don't match.")
         }else{
             
             let post = "email=\(email)&password=\(password)&c_password=\(confirmPassword)";
@@ -71,33 +71,50 @@ class SignupVc: UIViewController {
             request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
             
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request){data, response, error in
+
                 if error != nil {
-                    print("error=\(error)")
-                    return
+
+                    if let err = error{
+                        self.showAlertView("Signup failed", message: err.localizedDescription)
+                    }
+
+                  return
                 }
-                print("response = \(response)")
-                
-                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print("responseString = \(responseString)")
-                
-//                do {
-//                    if let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-//                        print(json)
-//                    }
-//                } catch let err as NSError {
-//                    print(err.localizedDescription)
-//                }
-                
+
+                if let httpResponse = response as? NSHTTPURLResponse{
+                    if(httpResponse.statusCode == 200){
+
+                        let json = JSON(data: data!)
+                        if json["OK"] == true{
+
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.performSegueWithIdentifier("goto_home", sender: self)
+                            })
+
+                        }else if json["error"] != nil{
+                            self.showAlertView("Signup failed", message: json["error"].stringValue)
+                        }
+                    }
+                }
+
+
+
             }
             
             task.resume()            
         }
+
         
         
         
     }
 
-    
+
+    override func  prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if "goto_home" == segue.identifier{
+            print("Please go to home")
+        }
+    }
     @IBAction func gotoLogin(sender: UIButton) {
       self.dismissViewControllerAnimated(true
         , completion: nil)

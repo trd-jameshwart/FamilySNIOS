@@ -8,9 +8,9 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeController" id="BYZ-38-t0r" customClass="ViewController" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OM9-fJ-T4y">
@@ -43,14 +43,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="601" y="235"/>
+            <point key="canvasLocation" x="263" y="91"/>
         </scene>
         <!--Signup Vc-->
         <scene sceneID="sKu-9f-v4q">
             <objects>
                 <viewController id="974-Jv-4a8" customClass="SignupVc" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mla-Fa-EWx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" id="0Dv-fv-3VK">
@@ -99,22 +99,24 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JBn-6m-XCK"/>
                     <connections>
                         <outlet property="txtConfirmPassword" destination="uIN-10-c3A" id="bxI-EJ-ylP"/>
                         <outlet property="txtEmail" destination="0Dv-fv-3VK" id="LAV-30-wRJ"/>
                         <outlet property="txtPassword" destination="3cq-zs-LlU" id="POZ-Ao-z82"/>
+                        <segue destination="BYZ-38-t0r" kind="modal" identifier="goto_home" id="osL-C1-BX3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YcR-XA-jno" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1121" y="479"/>
+            <point key="canvasLocation" x="1562" y="-694"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="j2R-yB-a9O">
             <objects>
                 <viewController id="HAf-lV-a39" customClass="LoginVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b2j-eM-djM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="jfj-6z-1AV">
@@ -159,11 +161,12 @@
                     <connections>
                         <outlet property="txtEmail" destination="jfj-6z-1AV" id="kJz-QV-Gcs"/>
                         <outlet property="txtPassword" destination="T6x-DO-cRU" id="zaN-Hg-Urn"/>
+                        <segue destination="BYZ-38-t0r" kind="modal" identifier="goto_home" id="KLe-1b-phU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xr-XT-yRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1121" y="-150"/>
+            <point key="canvasLocation" x="873" y="49"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TBC-e1-cMA">
@@ -184,7 +187,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0g-Hm-55o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="153.59999999999999" y="273.58666666666664"/>
+            <point key="canvasLocation" x="-235" y="125"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="KLe-1b-phU"/>
+    </inferredMetricsTieBreakers>
 </document>

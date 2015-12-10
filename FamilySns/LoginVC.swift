@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class LoginVC: UIViewController {
 
@@ -27,6 +28,80 @@ class LoginVC: UIViewController {
     
     @IBAction func signinTapped(sender: UIButton){
         //Authentication code here 
+
+        let email = txtEmail.text! as NSString
+        let pword = txtPassword.text! as NSString
+
+        if email.isEqualToString("") && pword.isEqualToString(""){
+            self.showAlertView("Login Error", message: "Please enter email and password.")
+        }else if email.isEqualToString(""){
+            self.showAlertView("Login Error", message: "Please enter email.")
+        }else if pword.isEqualToString(""){
+            self.showAlertView("Login Error", message: "Please enter password.")
+        }else{
+            let post = "email=\(email)&password=\(pword)"
+            let url:NSURL = NSURL(string: Globals.API_URL+"/service/login.php")!
+            print( Globals.API_URL+"/service/login.php")
+            
+            let postData = post.dataUsingEncoding(NSASCIIStringEncoding)!
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+
+            let postLength:NSString = String( postData.length )
+            request.HTTPMethod = "POST"
+            request.HTTPBody = postData
+            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
+
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){data, response, error in
+                if error != nil {
+
+                    if let err = error{
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.showAlertView("Login failed", message: err.localizedDescription)
+                        })
+
+                    }
+
+                    return
+                }
+
+                if let httpResponse = response as? NSHTTPURLResponse{
+                    if httpResponse.statusCode == 200 {
+
+                        let json = JSON(data: data!)
+                        if json["OK"] == true{
+
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.performSegueWithIdentifier("goto_home", sender: self)
+                            })
+
+                        }else{
+                            dispatch_async(dispatch_get_main_queue(),{
+                                self.showAlertView("Signup failed", message: json["error"].stringValue)
+                            })
+
+                        }
+                    }
+                }
+                
+
+            }
+
+            task.resume()
+            
+        }
+
+    }
+
+
+    func showAlertView(title: String, message: String ){
+        let alertView: UIAlertController = UIAlertController()
+        alertView.title = title
+        alertView.message = message
+        alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertView, animated: true, completion: nil)
     }
 
     /*

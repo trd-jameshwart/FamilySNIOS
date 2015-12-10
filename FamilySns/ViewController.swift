@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
    
     override func viewDidAppear(animated: Bool) {
-        self.performSegueWithIdentifier("goto_login", sender: self)
+        //self.performSegueWithIdentifier("goto_login", sender: self)
     }
     
     @IBAction func logoutTapped(sender: UIButton) {
