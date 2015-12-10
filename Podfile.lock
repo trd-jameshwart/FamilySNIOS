@@ -1,7 +1,9 @@
 PODS:
+  - Kingfisher (1.8.3)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
+  - Kingfisher (~> 1.8)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -14,6 +16,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
+  Kingfisher: ead91e9dbeb7e5a2e8b7af3bd8a294104cbcc3f9
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

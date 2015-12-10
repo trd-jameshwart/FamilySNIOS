@@ -81,6 +81,9 @@ class SignupVc: UIViewController {
                   return
                 }
 
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+
                 if let httpResponse = response as? NSHTTPURLResponse{
                     if(httpResponse.statusCode == 200){
 
