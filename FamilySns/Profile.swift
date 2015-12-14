@@ -13,6 +13,7 @@ import Kingfisher
 class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var myCoverPhoto: UIImageView!
+//    let recognizer = UITapGestureRecognizer()
     @IBOutlet weak var myProfilePhoto: UIImageView!
     let recognizer = UITapGestureRecognizer()
     @IBOutlet weak var profileActiviyIndicator: UIActivityIndicatorView!
@@ -23,13 +24,17 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
 
         myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/sample_cover.jpg")!, placeholderImage: nil)
         myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/male-profile-user.png")!, placeholderImage: nil)
+//        recognizer.addTarget(self, action: "profileImageTapped")
+//        myProfilePhoto.addGestureRecognizer(recognizer)
         recognizer.addTarget(self, action: "profileImageTapped")
+        myProfilePhoto.userInteractionEnabled = true
         myProfilePhoto.addGestureRecognizer(recognizer)
         roundedImageProfile()
     
     }
     
     @IBAction func profileImageTapped(){
+        print("profile tapped")
         let profileAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         let profileAlertActionUpload = UIAlertAction(title: "Upload from Library", style: .Default, handler: { (action: UIAlertAction) in
