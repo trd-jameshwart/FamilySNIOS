@@ -71,7 +71,8 @@ class LoginVC: UIViewController {
                     if httpResponse.statusCode == 200 {
 
                         let json = JSON(data: data!)
-                        if json["OK"] == true{
+                        print(json)
+                        if json[0]["OK"] == true{
 
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.performSegueWithIdentifier("goto_home", sender: self)
