@@ -14,49 +14,146 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
 
     @IBOutlet weak var myCoverPhoto: UIImageView!
     @IBOutlet weak var myProfilePhoto: UIImageView!
+    let recognizer = UITapGestureRecognizer()
     @IBOutlet weak var profileActiviyIndicator: UIActivityIndicatorView!
 
+    var flag: String!
+    
     override func viewDidLoad() {
 
         myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/sample_cover.jpg")!, placeholderImage: nil)
         myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/male-profile-user.png")!, placeholderImage: nil)
+        recognizer.addTarget(self, action: "profileImageTapped")
+        myProfilePhoto.addGestureRecognizer(recognizer)
         roundedImageProfile()
-
+    
     }
-
-
-    @IBAction func editCoverButtonTapped(sender: AnyObject) {
-        let myAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-
-        let alertActionUpload = UIAlertAction(title: "Upload from Gallery", style: .Default, handler: { (action: UIAlertAction!) in
+    
+    @IBAction func profileImageTapped(){
+        let profileAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let profileAlertActionUpload = UIAlertAction(title: "Upload from Library", style: .Default, handler: { (action: UIAlertAction) in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                self.selectFromGallery(self)
+                self.profileSelectFromGallery(self)
             });
-
-
         })
-
-        let alertActionTakePhoto = UIAlertAction(title: "Take photo", style: .Default, handler: { (action: UIAlertAction!) in
+        
+        let profileAlertActionTakePhoto = UIAlertAction(title: "Take photo", style: .Default, handler: { (action: UIAlertAction!) in
             print("Take Photo")
-            //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //                self.takePhoto(self)
-            //            });
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+               self.profileTakePhoto()
+            });
         })
-
-        let alertActionExisting = UIAlertAction(title: "Existing photos", style: .Default, handler: { (action: UIAlertAction!) in
+        
+        let profileAlertActionExisting = UIAlertAction(title: "Existing photos", style: .Default, handler: { (action: UIAlertAction!) in
             print("Handle Existing photos Logic here")
         })
+        
+        let profileAlertCancel = UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Cancel")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        
+        profileAlertController.addAction(profileAlertActionUpload)
+        profileAlertController.addAction(profileAlertActionTakePhoto)
+        profileAlertController.addAction(profileAlertActionExisting)
+        profileAlertController.addAction(profileAlertCancel)
+        
+        presentViewController(profileAlertController, animated: true, completion: nil)
+    }
+//    
+//    func profileImagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+//        myProfilePhoto.image = info[UIImagePickerControllerOriginalImage] as?UIImage
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
+//    
+    internal func profileSelectFromGallery(sender: Profile){
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = sender;
+        myPickerController.sourceType =
+            UIImagePickerControllerSourceType.PhotoLibrary
+        self.flag="ProfilePhoto"
+        sender.presentViewController(myPickerController, animated:true, completion: nil)
+    }
+    
+    internal func profileTakePhoto(){
+        let myPickerController2 = UIImagePickerController()
+        myPickerController2.delegate = self;
+        myPickerController2.sourceType =
+            UIImagePickerControllerSourceType.Camera
+        
+        self.flag="ProfilePhoto"
+        self.presentViewController(myPickerController2, animated:true, completion: nil)
+    }
 
-        myAlertController.addAction(alertActionUpload)
-        myAlertController.addAction(alertActionTakePhoto)
-        myAlertController.addAction(alertActionExisting)
+    
 
-        presentViewController(myAlertController, animated: true, completion: nil)
+    @IBAction func editCoverButtonTapped(sender: AnyObject) {
+        let coverAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+
+        let coverAlertActionUpload = UIAlertAction(title: "Upload from Library", style: .Default, handler: { (action: UIAlertAction!) in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                self.coverSelectFromGallery(self)
+            });
+        })
+
+        let coverAlertActionTakePhoto = UIAlertAction(title: "Take photo", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Take Photo")
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                self.coverTakePhoto()
+            });
+        })
+
+        let coverAlertActionExisting = UIAlertAction(title: "Existing photos", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Handle Existing photos Logic here")
+        })
+        
+        let coverAlertCancel = UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            print("Cancel")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+
+        coverAlertController.addAction(coverAlertActionUpload)
+        coverAlertController.addAction(coverAlertActionTakePhoto)
+        coverAlertController.addAction(coverAlertActionExisting)
+        coverAlertController.addAction(coverAlertCancel)
+
+        presentViewController(coverAlertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if self.flag == "CoverPhoto"{
+            myCoverPhoto.image = info[UIImagePickerControllerOriginalImage] as?UIImage
+        }else if self.flag == "ProfilePhoto"{
+            myProfilePhoto.image = info[UIImagePickerControllerOriginalImage] as?UIImage
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    internal func coverSelectFromGallery(sender: Profile){
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = sender;
+        myPickerController.sourceType =
+            UIImagePickerControllerSourceType.PhotoLibrary
+        self.flag = "CoverPhoto"
+        sender.presentViewController(myPickerController, animated:true, completion: nil)
+    }
+    
+    internal func coverTakePhoto(){
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self;
+        myPickerController.sourceType =
+            UIImagePickerControllerSourceType.Camera
+        
+        self.flag = "CoverPhoto"
+        self.presentViewController(myPickerController, animated:true, completion: nil)
     }
 
     @IBAction func uploadButtonTapped(sender: AnyObject) {
         myImageUploadRequest()
     }
+    
     func myImageUploadRequest(){
         let myUrl = NSURL(string: Globals.API_URL+"/service/image.php");
 
@@ -80,8 +177,6 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
 
         request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
 
-
-//        myActivityIndicator.hidden = false;
         profileActiviyIndicator.startAnimating();
 
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -107,11 +202,6 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
                 }
 
 
-
-
-
-
-
             dispatch_async(dispatch_get_main_queue(),{
                 self.profileActiviyIndicator.stopAnimating()
 //                self.myImageView.image = nil;
@@ -129,7 +219,6 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
         task.resume()
 
     }
-
 
     func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
         let body = NSMutableData();
@@ -165,22 +254,7 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
     }
 
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        myCoverPhoto.image = info[UIImagePickerControllerOriginalImage] as?UIImage
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    internal func selectFromGallery(sender: Profile){
-        let myPickerController = UIImagePickerController()
-        myPickerController.delegate = sender;
-        myPickerController.sourceType =
-            UIImagePickerControllerSourceType.PhotoLibrary
-
-        sender.presentViewController(myPickerController, animated:true, completion: nil)
-    }
-
     func roundedImageProfile(){
-
         myProfilePhoto.layer.cornerRadius = myProfilePhoto.frame.size.width / 2
         myProfilePhoto.clipsToBounds = true
     }
