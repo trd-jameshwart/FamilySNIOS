@@ -75,7 +75,8 @@ class LoginVC: UIViewController {
                         if json[0]["OK"] == true{
 
                             dispatch_async(dispatch_get_main_queue(), {
-                                self.performSegueWithIdentifier("goto_home", sender: self)
+                                //self.performSegueWithIdentifier("goto_home", sender: self)
+                                self.dismissViewControllerAnimated(true, completion: nil)
                             })
 
                         }else{
