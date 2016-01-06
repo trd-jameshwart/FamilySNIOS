@@ -34,46 +34,37 @@ class ViewController: UIViewController,UIPopoverPresentationControllerDelegate{
 
 
     }
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "popoverSegue"{
-////            dispatch_async(dispatch_get_main_queue(), {
-////                let popoverViewController = segue.destinationViewController
-////                popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
-////                popoverViewController.popoverPresentationController!.delegate = self
-////            })
-//
-//            let vc = PostModal()
-//            vc.modalPresentationStyle = .Popover
-//            presentViewController(vc, animated: true, completion: nil)
-//            vc.popoverPresentationController?.sourceView = view;
-//   //         vc.popoverPresentationController?.sourceRect =
-//        }
-//
-//
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        if segue.identifier == "popoverSegue"{
+//            dispatch_async(dispatch_get_main_queue(), {
+//                let popoverViewController = segue.destinationViewController
+//                popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+//                popoverViewController.popoverPresentationController!.delegate = self
+//            })
+
+            let vc = PostModal()
+            vc.modalPresentationStyle = .Popover
+            presentViewController(vc, animated: true, completion: nil)
+            vc.popoverPresentationController?.sourceView = view;
+   //         vc.popoverPresentationController?.sourceRect =
+        }
+
+
+    }
 
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
 
     override func viewWillAppear(animated: Bool) {
-        if Globals.USER_ID == nil{
-            self.performSegueWithIdentifier("goto_login", sender: nil)
-//            dispatch_async(dispatch_get_main_queue(), {
-//                self.performSegueWithIdentifier("goto_login", sender: nil)
-//            })
-        }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //[self setModalPresentationStyle:UIModalPresentationCurrentContext];
-//        if Globals.USER_ID == nil{
-//            self.performSegueWithIdentifier("goto_login", sender: nil)
-//            dispatch_async(dispatch_get_main_queue(), {
-//
-//            })
-//        }
+
     }
 
 

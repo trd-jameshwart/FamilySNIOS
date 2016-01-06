@@ -10,7 +10,7 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" id="A4C-IW-wrL" customClass="PostModal" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wao-M6-SR6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="behind_alert_view.png" id="YEY-xC-Z5g">
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQg-KC-sWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="786" y="-587"/>
+            <point key="canvasLocation" x="1361" y="-579"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -189,7 +189,7 @@
                     <connections>
                         <outlet property="tableView" destination="WxX-Sx-NZ7" id="hyl-fZ-Gip"/>
                         <segue destination="HAf-lV-a39" kind="modal" identifier="goto_login" id="Vxm-vw-DZD"/>
-                        <segue destination="xzH-gF-rhd" kind="push" identifier="goto_profile" id="3CA-vu-X5i"/>
+                        <segue destination="Npb-aP-ZZF" kind="modal" identifier="goto_profile" id="3CA-vu-X5i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -201,7 +201,7 @@
             <objects>
                 <viewController id="974-Jv-4a8" customClass="SignupVc" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mla-Fa-EWx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" id="0Dv-fv-3VK">
@@ -267,7 +267,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginVC" id="HAf-lV-a39" customClass="LoginVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b2j-eM-djM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="jfj-6z-1AV">
@@ -339,6 +339,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0g-Hm-55o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-238" y="104"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cbE-MD-qgg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Npb-aP-ZZF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="8PO-Zq-9PU"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gfh-7n-bAJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xzH-gF-rhd" kind="relationship" relationship="rootViewController" id="tco-mF-r1G"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l98-DP-wh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="-579"/>
         </scene>
     </scenes>
     <resources>

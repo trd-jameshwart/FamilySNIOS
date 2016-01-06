@@ -21,7 +21,14 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
     var flag: String!
     
     override func viewDidLoad() {
-        print(Globals.USER_CoverPhoto)
+        let backButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "backButtonItemTapped")
+
+        self.navigationItem.leftBarButtonItem = backButton
+
+        //self.navigationItem.leftBarButtonItem?.image =
+        //self.navigationItem.setLeftBarButtonItem(backButton, animated: true)
+
+
         myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
         myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
 //        recognizer.addTarget(self, action: "profileImageTapped")
@@ -31,6 +38,9 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
         myProfilePhoto.addGestureRecognizer(recognizer)
         roundedImageProfile()
     
+    }
+    @IBAction func backButtonItemTapped(){
+      self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func profileImageTapped(){
