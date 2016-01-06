@@ -21,9 +21,9 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
     var flag: String!
     
     override func viewDidLoad() {
-
-        myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/sample_cover.jpg")!, placeholderImage: nil)
-        myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.API_URL+"/resources/male-profile-user.png")!, placeholderImage: nil)
+        print(Globals.USER_CoverPhoto)
+        myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
+        myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
 //        recognizer.addTarget(self, action: "profileImageTapped")
 //        myProfilePhoto.addGestureRecognizer(recognizer)
         recognizer.addTarget(self, action: "profileImageTapped")
@@ -168,7 +168,7 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
         let param = [
             "firstName"  : "Felman",
             "lastName"    : "Buntog",
-            "userId"    : "9"
+            "userId"    : "\(Globals.USER_ID!)"
         ]
 
         let boundary = generateBoundaryString()
@@ -193,7 +193,7 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
             }
 
             // You can print out response object
-            print("******* response = \(response)")
+            //print("******* response = \(response)")
 
             // Print out reponse body
             let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)

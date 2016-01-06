@@ -76,7 +76,12 @@ class LoginVC: UIViewController {
 
                             dispatch_async(dispatch_get_main_queue(), {
                                 //self.performSegueWithIdentifier("goto_home", sender: self)
-                                self.dismissViewControllerAnimated(true, completion: nil)
+                                Globals.USER_ID = json[1]["id"].intValue
+                                Globals.USER_Email = json[1]["email"].stringValue
+                                Globals.USER_Profile = json[1]["profile_photo"].stringValue
+                                Globals.USER_CoverPhoto = json[1]["cover_photo"].stringValue
+                                //self.dismissViewControllerAnimated(true, completion: nil)
+                                self.performSegueWithIdentifier("goto_home", sender: nil)
                             })
 
                         }else{

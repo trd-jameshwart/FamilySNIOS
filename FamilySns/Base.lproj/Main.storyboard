@@ -265,7 +265,7 @@
         <!--LoginVC-->
         <scene sceneID="j2R-yB-a9O">
             <objects>
-                <viewController id="HAf-lV-a39" customClass="LoginVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="HAf-lV-a39" customClass="LoginVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b2j-eM-djM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,6 +345,6 @@
         <image name="behind_alert_view.png" width="320" height="460"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SJa-Q0-ymh"/>
+        <segue reference="KLe-1b-phU"/>
     </inferredMetricsTieBreakers>
 </document>
