@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIColor_Hex_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,16 +18,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let color:UIColor =  UIColor(rgba: "#026a34") //UIColor(hexString:"026a34")
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: .Normal)
+        
+        // then if StateSelected should be different, you should add this code
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
+        
+       // let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
 
-        if Globals.USER_ID == nil{
-            let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("LoginVC")
-            self.window?.rootViewController = loginScreen
-
-        }else{
-            let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("ViewController")
-            self.window?.rootViewController = mainScreen
-        }
+//        if Globals.USER_ID == nil{
+//            let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("LoginVC")
+//            self.window?.rootViewController = loginScreen
+//
+//        }else{
+//            let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("ViewController")
+//            self.window?.rootViewController = mainScreen
+//        }
         return true
     }
 

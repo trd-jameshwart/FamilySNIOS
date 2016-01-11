@@ -23,12 +23,12 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
     override func viewDidLoad() {
         let backButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "backButtonItemTapped")
 
-        self.navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.leftBarButtonItem =  backButton //UIBarButtonItem(image:StyleKit.imageOfMap, style:.Plain, target:self, action:nil)
+//        UIBarButtonItem(image: , style: <#T##UIBarButtonItemStyle#>, target: <#T##AnyObject?#>, action: <#T##Selector#>)
+
 
         //self.navigationItem.leftBarButtonItem?.image =
         //self.navigationItem.setLeftBarButtonItem(backButton, animated: true)
-
-
         myCoverPhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
         myProfilePhoto.kf_setImageWithURL(NSURL(string: Globals.USER_CoverPhoto!)!, placeholderImage: nil)
 //        recognizer.addTarget(self, action: "profileImageTapped")

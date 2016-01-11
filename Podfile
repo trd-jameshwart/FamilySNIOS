@@ -7,6 +7,8 @@ use_frameworks!
 
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Kingfisher', '~> 1.8'
+#pod 'SwiftHEXColors'
+pod 'UIColor_Hex_Swift', '~> 1.8'
 
 target 'FamilySns' do
  

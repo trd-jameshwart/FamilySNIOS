@@ -1,10 +1,12 @@
 PODS:
   - Kingfisher (1.8.3)
   - SwiftyJSON (2.3.2)
+  - UIColor_Hex_Swift (1.8)
 
 DEPENDENCIES:
   - Kingfisher (~> 1.8)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - UIColor_Hex_Swift (~> 1.8)
 
 EXTERNAL SOURCES:
   SwiftyJSON:
@@ -18,5 +20,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Kingfisher: ead91e9dbeb7e5a2e8b7af3bd8a294104cbcc3f9
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  UIColor_Hex_Swift: a66b9d5f6e8fddbd9fe32996504f0b7e9d20d680
 
 COCOAPODS: 0.39.0
