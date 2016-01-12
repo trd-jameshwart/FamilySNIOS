@@ -25,16 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // then if StateSelected should be different, you should add this code
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
         
-       // let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-
-//        if Globals.USER_ID == nil{
-//            let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("LoginVC")
-//            self.window?.rootViewController = loginScreen
-//
-//        }else{
-//            let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("ViewController")
-//            self.window?.rootViewController = mainScreen
-//        }
+       
+        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        let userId = defaults.objectForKey("user_id")
+        
+        print("\(userId)")
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        if userId == nil {
+           let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("Log_inVC")
+           self.window?.rootViewController = loginScreen
+        }
+        else {
+            let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("MainVC")
+            self.window?.rootViewController = mainScreen
+        }
+        
         return true
     }
 

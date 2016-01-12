@@ -39,9 +39,8 @@ class SignupVc: UIViewController {
         let email: NSString = txtEmail.text! as NSString
         let password: NSString = txtPassword.text! as NSString
         let confirmPassword: NSString = txtConfirmPassword.text! as NSString
-        
-        
 
+        
         if(email.isEqualToString("") || password.isEqualToString("")){
 
             self.showAlertView("Sigup failed", message: "Please enter email and password.")
@@ -52,7 +51,7 @@ class SignupVc: UIViewController {
         }else{
             
             let post = "email=\(email)&password=\(password)&c_password=\(confirmPassword)";
-            NSLog("Post Data: %@", post)
+            //NSLog("Post Data: %@", post)
             
             let url:NSURL = NSURL(string: Globals.API_URL+"/service/signup.php")!
             
@@ -75,15 +74,15 @@ class SignupVc: UIViewController {
                 if error != nil {
 
                     if let err = error{
-                        self.showAlertView("Signup failed", message: err.localizedDescription)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.showAlertView("Signup failed", message: err.localizedDescription)
+                        })
+                        
                     }
 
                   return
                 }
-
-                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print("responseString = \(responseString)")
-
+                
                 if let httpResponse = response as? NSHTTPURLResponse{
                     if(httpResponse.statusCode == 200){
 
@@ -91,11 +90,16 @@ class SignupVc: UIViewController {
                         if json["OK"] == true{
 
                             dispatch_async(dispatch_get_main_queue(), {
-                                self.performSegueWithIdentifier("goto_home", sender: self)
+                                let MainVC:UIViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle() ).instantiateViewControllerWithIdentifier("MainVC")
+                                self.presentViewController(MainVC, animated: true, completion: nil)
                             })
 
                         }else if json["error"] != nil{
-                            self.showAlertView("Signup failed", message: json["error"].stringValue)
+                          
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.showAlertView("Signup failed", message: json["error"].stringValue)
+                            })
+                            
                         }
                     }
                 }
@@ -112,12 +116,12 @@ class SignupVc: UIViewController {
         
     }
 
-
-    override func  prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if "goto_home" == segue.identifier{
-            print("Please go to home")
-        }
-    }
+//
+//    override func  prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if "goto_home" == segue.identifier{
+//            print("Please go to home")
+//        }
+//    }
     @IBAction func gotoLogin(sender: UIButton) {
       self.dismissViewControllerAnimated(true
         , completion: nil)

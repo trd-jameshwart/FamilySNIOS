@@ -26,6 +26,8 @@ class LoginVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func signinTapped(sender: UIButton){
         //Authentication code here 
 
@@ -71,7 +73,7 @@ class LoginVC: UIViewController {
                     if httpResponse.statusCode == 200 {
 
                         let json = JSON(data: data!)
-                        print(json)
+                        //print(json)
                         if json[0]["OK"] == true{
 
                             dispatch_async(dispatch_get_main_queue(), {
@@ -81,7 +83,10 @@ class LoginVC: UIViewController {
                                 Globals.USER_Profile = json[1]["profile_photo"].stringValue
                                 Globals.USER_CoverPhoto = json[1]["cover_photo"].stringValue
                                 //self.dismissViewControllerAnimated(true, completion: nil)
-                                self.performSegueWithIdentifier("goto_home", sender: nil)
+                                let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                                
+                                defaults.setObject(json[1]["id"].intValue, forKey: "user_id")
+                                self.performSegueWithIdentifier("go_home", sender: nil)
                             })
 
                         }else{

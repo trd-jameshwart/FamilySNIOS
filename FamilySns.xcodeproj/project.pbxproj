@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F2A04F356DA6812F6032C6A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FDD63BDE36840F54766E2D1 /* Pods.framework */; };
+		A34870831C43A75E003D0D37 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34870821C43A75E003D0D37 /* SettingsVC.swift */; };
 		A36330231C43437B007E6828 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36330221C43437B007E6828 /* FriendsVC.swift */; };
 		A36330251C434808007E6828 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36330241C434808007E6828 /* SearchVC.swift */; };
 		A36330271C43497E007E6828 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36330261C43497E007E6828 /* NotificationVC.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		4FDD63BDE36840F54766E2D1 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D9F8C7E627B5C7B3231666D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A34870821C43A75E003D0D37 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		A36330221C43437B007E6828 /* FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		A36330241C434808007E6828 /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		A36330261C43497E007E6828 /* NotificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				A36330221C43437B007E6828 /* FriendsVC.swift */,
 				A36330241C434808007E6828 /* SearchVC.swift */,
 				A36330261C43497E007E6828 /* NotificationVC.swift */,
+				A34870821C43A75E003D0D37 /* SettingsVC.swift */,
 			);
 			path = FamilySns;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				A374B5C21C19845100E7EEDC /* Profile.swift in Sources */,
 				A38444371C166BFE00E0E8C7 /* ViewController.swift in Sources */,
 				A369A2791C1C06B8001F254C /* PostModal.swift in Sources */,
+				A34870831C43A75E003D0D37 /* SettingsVC.swift in Sources */,
 				A36330231C43437B007E6828 /* FriendsVC.swift in Sources */,
 				A36330251C434808007E6828 /* SearchVC.swift in Sources */,
 				A38444351C166BFD00E0E8C7 /* AppDelegate.swift in Sources */,
