@@ -77,7 +77,6 @@ class SignupVc: UIViewController {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.showAlertView("Signup failed", message: err.localizedDescription)
                         })
-                        
                     }
 
                   return

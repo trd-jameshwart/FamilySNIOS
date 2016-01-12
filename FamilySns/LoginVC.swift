@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import UIColor_Hex_Swift
 
 class LoginVC: UIViewController {
 
@@ -15,9 +16,14 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
+    @IBOutlet weak var btnLogin: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        btnLogin.layer.cornerRadius = 5
+//        btnLogin.layer.borderWidth = 1
+        //let color:UIColor =  UIColor(rgba: "#026a34").CGColor //UIColor(hexString:"026a34")
+        //btnLogin.layer.borderColor = UIColor.redColor().CGColor
+        
         // Do any additional setup after loading the view.
     }
 

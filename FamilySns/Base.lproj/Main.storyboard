@@ -188,6 +188,11 @@
                                 <color key="backgroundColor" red="0.1345288388491826" green="0.44173972473604828" blue="0.18791225361705038" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Log In"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signinTapped:" destination="Ao4-Gu-HWa" eventType="touchUpInside" id="9ki-Cu-Rvh"/>
                                     <action selector="signinTapped:" destination="HAf-lV-a39" eventType="touchUpInside" id="seY-24-uJM"/>
@@ -221,14 +226,15 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnLogin" destination="KVQ-x5-qrI" id="iVS-aV-eKR"/>
                         <outlet property="txtEmail" destination="pNM-Y4-KcV" id="c7S-0C-s7T"/>
                         <outlet property="txtPassword" destination="5a0-or-fiU" id="Ujc-er-xek"/>
-                        <segue destination="Vt6-Pj-TSo" kind="modal" identifier="go_home" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="5oG-A2-Q3m"/>
+                        <segue destination="Vt6-Pj-TSo" kind="modal" identifier="go_home" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="5oG-A2-Q3m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmB-02-ReX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1956" y="-1545"/>
+            <point key="canvasLocation" x="-1956" y="-1518"/>
         </scene>
         <!--Signup Vc-->
         <scene sceneID="3rT-nJ-cq9">
@@ -242,20 +248,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b55-kU-TL4">
-                                <rect key="frame" x="70" y="215" width="180" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b55-kU-TL4">
+                                <rect key="frame" x="66" y="215" width="188" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wyu-WG-YGT">
-                                <rect key="frame" x="70" y="266" width="180" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-EH-taa">
-                                <rect key="frame" x="35" y="374" width="250" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-EH-taa">
+                                <rect key="frame" x="31" y="374" width="258" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Already have an account? Login now"/>
                                 <connections>
@@ -263,27 +263,56 @@
                                     <action selector="gotoLogin:" destination="974-Jv-4a8" eventType="touchUpInside" id="jfN-ay-bNB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxJ-1a-n9I">
-                                <rect key="frame" x="70" y="316" width="180" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxJ-1a-n9I">
+                                <rect key="frame" x="66" y="316" width="188" height="30"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.13452883879999999" green="0.4417397247" blue="0.1879122536" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signupTapped:" destination="Rc3-kF-mtS" eventType="touchUpInside" id="bra-G5-Pxa"/>
                                     <action selector="signupTapped:" destination="974-Jv-4a8" eventType="touchUpInside" id="qxS-Nn-3Eq"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKm-Am-NNX">
-                                <rect key="frame" x="70" y="164" width="180" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKm-Am-NNX">
+                                <rect key="frame" x="66" y="164" width="188" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wyu-WG-YGT">
+                                <rect key="frame" x="66" y="266" width="188" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                            </textField>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.17254901960784313" green="0.5725490196078431" blue="0.23921568627450981" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wyu-WG-YGT" firstAttribute="top" secondItem="b55-kU-TL4" secondAttribute="bottom" constant="21" id="0Qt-Sg-Q7b"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fxJ-1a-n9I" secondAttribute="trailing" constant="50" id="0qC-p4-6rB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wyu-WG-YGT" secondAttribute="trailing" constant="50" id="2BE-Ko-CLm"/>
+                            <constraint firstItem="fxJ-1a-n9I" firstAttribute="leading" secondItem="jUw-JH-ApV" secondAttribute="leadingMargin" constant="50" id="2K3-gz-3dk"/>
+                            <constraint firstItem="b55-kU-TL4" firstAttribute="top" secondItem="CKm-Am-NNX" secondAttribute="bottom" constant="21" id="6KM-xs-zfH"/>
+                            <constraint firstItem="zCF-EH-taa" firstAttribute="leading" secondItem="jUw-JH-ApV" secondAttribute="leadingMargin" constant="15" id="8t3-Hn-SSL"/>
+                            <constraint firstItem="fxJ-1a-n9I" firstAttribute="top" secondItem="wyu-WG-YGT" secondAttribute="bottom" constant="20" id="HpH-3c-485"/>
+                            <constraint firstItem="CKm-Am-NNX" firstAttribute="leading" secondItem="jUw-JH-ApV" secondAttribute="leadingMargin" constant="50" id="Nbu-zU-qOY"/>
+                            <constraint firstItem="wyu-WG-YGT" firstAttribute="leading" secondItem="jUw-JH-ApV" secondAttribute="leadingMargin" constant="50" id="ZfI-lT-IM4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zCF-EH-taa" secondAttribute="trailing" constant="15" id="dFG-wP-3z4"/>
+                            <constraint firstItem="CKm-Am-NNX" firstAttribute="centerX" secondItem="zCF-EH-taa" secondAttribute="centerX" id="g8F-Hb-9SJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b55-kU-TL4" secondAttribute="trailing" constant="50" id="k27-UD-IOs"/>
+                            <constraint firstItem="zCF-EH-taa" firstAttribute="top" secondItem="fxJ-1a-n9I" secondAttribute="bottom" constant="28" id="qKp-xG-mro"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CKm-Am-NNX" secondAttribute="trailing" constant="50" id="qUj-7b-GFn"/>
+                            <constraint firstItem="b55-kU-TL4" firstAttribute="leading" secondItem="jUw-JH-ApV" secondAttribute="leadingMargin" constant="50" id="wjV-iu-J7A"/>
+                            <constraint firstItem="CKm-Am-NNX" firstAttribute="top" secondItem="Cex-lb-QJq" secondAttribute="bottom" constant="144" id="yQ1-gH-5jx"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="txtConfirmPassword" destination="wyu-WG-YGT" id="lQ0-rZ-rEL"/>
