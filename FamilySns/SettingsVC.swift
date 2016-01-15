@@ -8,8 +8,11 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
+class SettingsVC: UITableViewController {
     
+    override func viewDidLoad() {
+        self.tabBarItem.selectedImage = UIImage(named: "Settings_w")?.imageWithRenderingMode(.AlwaysOriginal)
+    }
     
     @IBAction func logOutTapped(sender: UIButton) {
         //Call Log Out

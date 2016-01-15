@@ -12,5 +12,6 @@ class NotificationVC: UIViewController {
 
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Notification_w")?.imageWithRenderingMode(.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "Notification_g")?.imageWithRenderingMode(.AlwaysOriginal)
     }
 }

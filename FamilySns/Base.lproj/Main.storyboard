@@ -75,6 +75,44 @@
             <point key="canvasLocation" x="-305" y="-1758"/>
         </scene>
         <!--Settings-->
+        <scene sceneID="Zvw-H1-Ued">
+            <objects>
+                <tableViewController id="Qhm-i5-IgL" customClass="SettingsVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="UFR-Fy-9VA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="s" id="GKi-JF-E1v">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GKi-JF-E1v" id="zes-Vo-LPg">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <segue destination="IDw-Uv-eSA" kind="push" id="2Po-KK-vL8"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Qhm-i5-IgL" id="X6A-wc-7if"/>
+                            <outlet property="delegate" destination="Qhm-i5-IgL" id="apn-EH-3WZ"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings_g" selectedImage="Settings_w" id="m48-DH-0YM">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="UiD-Wi-5Ug"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jj1-ED-wHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1448" y="-773"/>
+        </scene>
+        <!--Settings-->
         <scene sceneID="Axh-I4-lIN">
             <objects>
                 <viewController id="IDw-Uv-eSA" customClass="SettingsVC" customModule="FamilySns" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,10 +148,11 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="eCv-a2-WGl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zcu-Bn-n4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1128" y="-765"/>
+            <point key="canvasLocation" x="-930" y="-541"/>
         </scene>
         <!--Notification-->
         <scene sceneID="3aI-YX-OY3">
@@ -386,7 +425,7 @@
                         <segue destination="lZf-Kf-4Px" kind="relationship" relationship="viewControllers" id="uoy-Ys-0XS"/>
                         <segue destination="CxR-wF-cL7" kind="relationship" relationship="viewControllers" id="TJi-z5-Dvy"/>
                         <segue destination="7nT-EA-F5I" kind="relationship" relationship="viewControllers" id="wZM-lQ-usz"/>
-                        <segue destination="IDw-Uv-eSA" kind="relationship" relationship="viewControllers" id="ro1-6b-VLY"/>
+                        <segue destination="Qhm-i5-IgL" kind="relationship" relationship="viewControllers" id="WKs-Co-Hwj"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wOv-fZ-0Pu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -758,6 +797,6 @@
         <image name="behind_alert_view.png" width="320" height="460"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KLe-1b-phU"/>
+        <segue reference="CEh-d1-Ecq"/>
     </inferredMetricsTieBreakers>
 </document>

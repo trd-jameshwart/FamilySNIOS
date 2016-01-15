@@ -12,6 +12,6 @@ class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Search_w")?.imageWithRenderingMode(.AlwaysOriginal)
-//        self.tabBarItem.image = UIImage(named: "Search_g")?.imageWithRenderingMode(.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "Search_g")?.imageWithRenderingMode(.AlwaysOriginal)
     }
 }

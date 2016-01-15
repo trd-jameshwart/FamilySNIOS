@@ -12,8 +12,7 @@ class FriendsVC: UIViewController {
 
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Friends_w")?.imageWithRenderingMode(.AlwaysOriginal)
-
-        //self.tabBarItem.image = UIImage(named: "Friends_g")?.imageWithRenderingMode(.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "Friends_g")?.imageWithRenderingMode(.AlwaysOriginal)
     }
    
 }
