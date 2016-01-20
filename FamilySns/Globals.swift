@@ -8,7 +8,7 @@
 
 import Foundation
 struct Globals {
-    static var API_URL = "http://family_sns.timeriverd.local"
+    static var API_URL = "http://family_sns.timeriverd.net"
     static var USER_ID: Int?
     static var USER_CoverPhoto:String?
     static var USER_Profile:String?

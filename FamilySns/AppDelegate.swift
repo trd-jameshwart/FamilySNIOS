@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userId = defaults.objectForKey("user_id")
         
-        print("\(userId)")
+        print("user id \(userId)")
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         if userId == nil {

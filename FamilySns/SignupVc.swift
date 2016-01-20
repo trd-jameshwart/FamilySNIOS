@@ -26,6 +26,15 @@ class SignupVc: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown ]
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     func showAlertView(title: String, message:String){
         let alertView:UIAlertController = UIAlertController()
         alertView.title = title

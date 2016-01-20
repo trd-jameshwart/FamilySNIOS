@@ -20,6 +20,16 @@ class Profile: UIViewController,UIImagePickerControllerDelegate,UINavigationCont
 
     var flag: String!
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.Portrait,UIInterfaceOrientationMask.PortraitUpsideDown]
+        return orientation
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+
+    
     override func viewDidLoad() {
         let backButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "backButtonItemTapped")
 

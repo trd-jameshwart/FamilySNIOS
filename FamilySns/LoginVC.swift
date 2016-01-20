@@ -26,6 +26,15 @@ class LoginVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.Portrait,UIInterfaceOrientationMask.PortraitUpsideDown]
+        return orientation
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -36,7 +45,7 @@ class LoginVC: UIViewController {
     
     @IBAction func signinTapped(sender: UIButton){
         //Authentication code here 
-
+        
         let email = txtEmail.text! as NSString
         let pword = txtPassword.text! as NSString
 
@@ -47,9 +56,11 @@ class LoginVC: UIViewController {
         }else if pword.isEqualToString(""){
             self.showAlertView("Login Error", message: "Please enter password.")
         }else{
+            
+            
             let post = "email=\(email)&password=\(pword)"
             let url:NSURL = NSURL(string: Globals.API_URL+"/service/login.php")!
-            print( Globals.API_URL+"/service/login.php")
+           
             
             let postData = post.dataUsingEncoding(NSASCIIStringEncoding)!
             let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
@@ -88,10 +99,17 @@ class LoginVC: UIViewController {
                                 Globals.USER_Email = json[1]["email"].stringValue
                                 Globals.USER_Profile = json[1]["profile_photo"].stringValue
                                 Globals.USER_CoverPhoto = json[1]["cover_photo"].stringValue
+                                
+                                
                                 //self.dismissViewControllerAnimated(true, completion: nil)
                                 let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                                
+                                print(Globals.USER_Email);
                                 defaults.setObject(json[1]["id"].intValue, forKey: "user_id")
+                                defaults.setObject(json[1]["email"].stringValue, forKey: "user_email")
+                                defaults.setObject(json[1]["profile_photo"].stringValue, forKey: "user_profile_photo")
+                                
+                                defaults.setObject(json[1]["cover_photo"].stringValue, forKey: "user_cover_photo")
+                               
                                 self.performSegueWithIdentifier("go_home", sender: nil)
                             })
 
