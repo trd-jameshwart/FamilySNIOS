@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Ao4-Gu-HWa">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -121,22 +122,48 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vw1-Ac-LMm">
-                                                    <rect key="frame" x="14" y="0.0" width="46" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vw1-Ac-LMm">
+                                                    <rect key="frame" x="14" y="16" width="51" height="11"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="51" id="a3B-wO-Gvl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="__________" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juS-QA-iLx">
+                                                    <rect key="frame" x="72" y="16" width="211" height="11"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="___" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juS-QA-iLx">
-                                                    <rect key="frame" x="68" y="0.0" width="211" height="21"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f73-nL-dQA">
+                                                    <rect key="frame" x="73" y="6" width="184" height="30"/>
                                                     <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uE-r5-aTy">
+                                                    <rect key="frame" x="265" y="5" width="48" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Cancel"/>
+                                                    <connections>
+                                                        <action selector="cancelUpdateEmailTapped:" destination="Qhm-i5-IgL" eventType="touchUpInside" id="27g-La-IgN"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="vw1-Ac-LMm" firstAttribute="leading" secondItem="NfB-3m-9yu" secondAttribute="leadingMargin" constant="6" id="CT6-xW-sFd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vw1-Ac-LMm" secondAttribute="bottom" constant="8" id="DsY-Hc-iE7"/>
+                                                <constraint firstItem="juS-QA-iLx" firstAttribute="leading" secondItem="vw1-Ac-LMm" secondAttribute="trailing" constant="7" id="Kxo-9R-m0H"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="juS-QA-iLx" secondAttribute="trailing" constant="29" id="S7G-9b-h7e"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="juS-QA-iLx" secondAttribute="bottom" constant="8" id="mbQ-i2-c0M"/>
+                                                <constraint firstItem="vw1-Ac-LMm" firstAttribute="top" secondItem="NfB-3m-9yu" secondAttribute="topMargin" constant="8" id="ptX-kA-7eQ"/>
+                                                <constraint firstItem="juS-QA-iLx" firstAttribute="top" secondItem="NfB-3m-9yu" secondAttribute="topMargin" constant="8" id="qq7-Qu-vO1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
@@ -249,7 +276,9 @@
                     <navigationItem key="navigationItem" title="Settings" id="UiD-Wi-5Ug"/>
                     <connections>
                         <outlet property="ProFileImage" destination="h4J-I7-r1J" id="YPx-lH-NA6"/>
+                        <outlet property="btnCancel" destination="7uE-r5-aTy" id="yIO-6O-67a"/>
                         <outlet property="lblEmail" destination="juS-QA-iLx" id="pvq-i8-Uj8"/>
+                        <outlet property="txtEmail" destination="f73-nL-dQA" id="FKU-hh-SdY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj1-ED-wHc" userLabel="First Responder" sceneMemberID="firstResponder"/>

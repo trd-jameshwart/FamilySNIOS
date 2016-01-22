@@ -15,6 +15,14 @@ class User{
     var cover_photo:String
     var profile_photo:String
     
+    init(){
+        self.id = 0
+        self.email = ""
+        self.cover_photo = ""
+        self.profile_photo = ""
+    }
+    
+    
     init(Id: Int){
         self.id = Id
         self.id = 0
@@ -61,6 +69,15 @@ class User{
         
         task.resume()
         
+        
+    }
+    
+    func update(usersInfo: [String] ){
+       
+    
+    }
+    
+    func create(){
         
     }
 }

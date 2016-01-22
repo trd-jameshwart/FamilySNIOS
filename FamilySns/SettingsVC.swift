@@ -10,16 +10,19 @@ import UIKit
 import QuartzCore
 import Kingfisher
 
-class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var ProFileImage: UIImageView!
     
     @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var txtEmail: UITextField!
+    
+    @IBOutlet weak var btnCancel: UIButton!
     
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Settings_w")?.imageWithRenderingMode(.AlwaysOriginal)
 
-        self.tableView.separatorColor = UIColor.clearColor()
+        //self.tableView.separatorColor = UIColor.clearColor()
             let defaults = NSUserDefaults.standardUserDefaults()
             if let coverPhoto = defaults.stringForKey("user_cover_photo") {
                 print(coverPhoto)
@@ -32,11 +35,55 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         
         if let emailText = defaults.stringForKey("user_email"){
             self.lblEmail.text = emailText
+            self.txtEmail.text = emailText
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("profileTapped:"))
         self.ProFileImage.userInteractionEnabled = true
         self.ProFileImage.addGestureRecognizer(tapGestureRecognizer)
+        
+        self.txtEmail.hidden = true
+        self.txtEmail.delegate = self
+        self.btnCancel.hidden = true
+        
+        
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("dismissKeyBoard"))
+//        view.addGestureRecognizer(tap)
+    }
+    
+    @IBAction func cancelUpdateEmailTapped(sender: AnyObject) {
+        self.txtEmail.hidden = true
+        self.btnCancel.hidden = true
+        self.lblEmail.hidden = false
+        self.view.endEditing(true)
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        self.txtEmail.resignFirstResponder()
+        self.txtEmail.hidden = true
+        self.btnCancel.hidden = true
+        self.lblEmail.text = self.txtEmail.text
+        self.lblEmail.hidden = false
+        self.view.endEditing(true)
+        
+        print("Saving textfield data should be here")
+        return true
+        
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+        print("touchesBegan")
+    }
+    
+    func dismissKeyBoard(){
+            view.endEditing(true)
+    }
+    
+    func emailTapped(sender: AnyObject){
+        print("Email tapped")
     }
     
     
@@ -182,7 +229,15 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         //Account Section
         if indexPath.section == 0{
         
-            if indexPath.row == 2{
+            if indexPath.row == 1{
+                //Hide label Email and show textfield Email
+                self.lblEmail.hidden = true
+                self.txtEmail.becomeFirstResponder()
+                self.txtEmail.hidden = false
+                self.btnCancel.hidden = false
+                
+                
+            } else  if indexPath.row == 2{
                 
                 logOut()
             }

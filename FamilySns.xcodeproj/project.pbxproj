@@ -27,6 +27,7 @@
 		A38444691C16803900E0E8C7 /* SignupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38444681C16803900E0E8C7 /* SignupVc.swift */; };
 		A384446F1C16BB9500E0E8C7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384446E1C16BB9500E0E8C7 /* Globals.swift */; };
 		A3A33D091C3F9B4100DEB267 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A33D081C3F9B4100DEB267 /* HomeVC.swift */; };
+		A3AF28831C52114300F917F8 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AF28821C52114300F917F8 /* HttpRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		A38444681C16803900E0E8C7 /* SignupVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVc.swift; sourceTree = "<group>"; };
 		A384446E1C16BB9500E0E8C7 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		A3A33D081C3F9B4100DEB267 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		A3AF28821C52114300F917F8 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		EF865FA940730608C0134E4D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 				A36330261C43497E007E6828 /* NotificationVC.swift */,
 				A34870821C43A75E003D0D37 /* SettingsVC.swift */,
 				A37731AC1C4F67A300A20700 /* User.swift */,
+				A3AF28821C52114300F917F8 /* HttpRequest.swift */,
 			);
 			path = FamilySns;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				A3A33D091C3F9B4100DEB267 /* HomeVC.swift in Sources */,
 				A374B5C21C19845100E7EEDC /* Profile.swift in Sources */,
 				A38444371C166BFE00E0E8C7 /* ViewController.swift in Sources */,
+				A3AF28831C52114300F917F8 /* HttpRequest.swift in Sources */,
 				A369A2791C1C06B8001F254C /* PostModal.swift in Sources */,
 				A34870831C43A75E003D0D37 /* SettingsVC.swift in Sources */,
 				A36330231C43437B007E6828 /* FriendsVC.swift in Sources */,
@@ -538,7 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FamilySns/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.minato.jp.FamilySns;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -551,7 +555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FamilySns/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.minato.jp.FamilySns;
 				PRODUCT_NAME = "$(TARGET_NAME)";

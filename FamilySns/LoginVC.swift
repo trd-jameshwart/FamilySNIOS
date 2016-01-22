@@ -57,22 +57,18 @@ class LoginVC: UIViewController {
             self.showAlertView("Login Error", message: "Please enter password.")
         }else{
             
+            let urlString = Globals.API_URL+"/service/login.php"
+//            let post = "email=\(email)&password=\(pword)"
+            print("\(email)")
+            print("\(pword)")
+            let post = [
+                "email"     : "\(email)",
+                "password"  : "\(pword)"
+            ]
             
-            let post = "email=\(email)&password=\(pword)"
-            let url:NSURL = NSURL(string: Globals.API_URL+"/service/login.php")!
+            let http = HttpRequest(url: urlString, postData: post)
+            let request = http.getRequest()
             
-            
-            let postData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-
-            let postLength:NSString = String( postData.length )
-            request.HTTPMethod = "POST"
-            request.HTTPBody = postData
-            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
-
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request){data, response, error in
                 if error != nil {
 
