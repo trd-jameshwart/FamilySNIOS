@@ -28,19 +28,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         
-        let userId = defaults.objectForKey("user_id")
-        
-        print("user id \(userId)")
-        
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if userId == nil {
-           let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("Log_inVC")
-           self.window?.rootViewController = loginScreen
+        if let userId = defaults.stringForKey("user_id"){
+            
+            print("user id \(userId)")
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            if userId == "" {
+                let loginScreen = storyBoard.instantiateViewControllerWithIdentifier("Log_inVC")
+                self.window?.rootViewController = loginScreen
+            }
+            else {
+                let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("MainVC")
+                self.window?.rootViewController = mainScreen
+            }
         }
-        else {
-            let mainScreen = storyBoard.instantiateViewControllerWithIdentifier("MainVC")
-            self.window?.rootViewController = mainScreen
-        }
+        
         
         return true
     }

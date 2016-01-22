@@ -10,15 +10,11 @@ import UIKit
 import QuartzCore
 import Kingfisher
 
-class SettingsVC: UITableViewController {
+class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var ProFileImage: UIImageView!
     
-
-    
     @IBOutlet weak var lblEmail: UILabel!
-    
-    
     
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Settings_w")?.imageWithRenderingMode(.AlwaysOriginal)
@@ -38,11 +34,148 @@ class SettingsVC: UITableViewController {
             self.lblEmail.text = emailText
         }
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("profileTapped:"))
+        self.ProFileImage.userInteractionEnabled = true
+        self.ProFileImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        self.ProFileImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.dismissViewControllerAnimated(true, completion: nil)
+        uploadImageChoosen()
+    }
+    
+    func profileTapped(img:AnyObject){
+        print("Profile image tapped")
+        let profileAlertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
+        let ActionUploadFromLibrary = UIAlertAction(title: "Upload from Library", style: .Default, handler: {
+            (action: UIAlertAction) in
+            
+            print("Upload from Library")
+            self.setProfilePicture("photo_library")
+            
+        })
+
+        let ActionTakePhoto = UIAlertAction(title: "Take a photo", style: .Default, handler: {
+            (action: UIAlertAction) in
+ 
+            print("Take a photo")
+            self.setProfilePicture("camera")
+        })
+        
+        let ActionCancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (action: UIAlertAction) in
+            print("Cancel")
+        })
+        
+        profileAlertController.addAction(ActionUploadFromLibrary)
+        profileAlertController.addAction(ActionTakePhoto)
+        profileAlertController.addAction(ActionCancel)
+        
+        self.presentViewController(profileAlertController, animated: true, completion: nil)
+    }
+    
+    func generateBoundaryString() -> String {
+        return "Boundary-\(NSUUID().UUIDString)"
+    }
+
+    func uploadImageChoosen(){
+        if let userid = NSUserDefaults.standardUserDefaults().stringForKey("user_id") {
+            
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: Globals.API_URL+"/service/image.php")!)
+            print(userid)
+            request.HTTPMethod = "POST"
+            let boundary = generateBoundaryString()
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField:"Content-Type")
+            
+            let imageData = UIImageJPEGRepresentation(self.ProFileImage.image!, 1)
+            
+            if imageData == nil{
+                return
+            }
+            let param = [
+                "firstName"  : "Felman",
+                "userId"  : userid
+            ]
+            
+            
+            
+            request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+            
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){
+                data, response, error in
+                
+                if error != nil{
+                    return
+                }
+                
+                // Print out reponse body
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("****** response data = \(responseString!)")
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
+                    print(json)
+                } catch let err as NSError {
+                    print("JSON error: \(err.localizedDescription)")
+                }
+                
+            }
+            
+            task.resume()
+        }
         
     }
     
-
+    func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
+        let body = NSMutableData();
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString("--\(boundary)\r\n")
+                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString("\(value)\r\n")
+            }
+        }
+        
+        let filename = "user-profile.jpg"
+        
+        let mimetype = "image/jpg"
+        
+        body.appendString("--\(boundary)\r\n")
+        body.appendString("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimetype)\r\n\r\n")
+        body.appendData(imageDataKey)
+        body.appendString("\r\n")
+        
+        
+        
+        body.appendString("--\(boundary)--\r\n")
+        
+        return body
+        
+    }
+    
+    private func setProfilePicture(whereStr: String){
+        
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        
+        if whereStr == "camera"{
+           
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
+            
+        } else if whereStr == "photo_library"{
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }else{
+            imagePickerController
+        }
+        
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        print("\(indexPath.section)  ===== \(indexPath.row)  ")

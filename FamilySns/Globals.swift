@@ -13,4 +13,5 @@ struct Globals {
     static var USER_CoverPhoto:String?
     static var USER_Profile:String?
     static var USER_Email:String?
+    
 }

@@ -60,7 +60,7 @@ class LoginVC: UIViewController {
             
             let post = "email=\(email)&password=\(pword)"
             let url:NSURL = NSURL(string: Globals.API_URL+"/service/login.php")!
-           
+            
             
             let postData = post.dataUsingEncoding(NSASCIIStringEncoding)!
             let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
