@@ -20,7 +20,7 @@ class HttpRequest{
 
         self.request = NSMutableURLRequest(URL: NSURL(string: url)!)
         self.request.HTTPMethod = self.httpType
-        self.urlEncoded()
+        self.setUrlEncoded()
         self.accetpJSON()
         self.request.HTTPBody = postData.dataUsingEncoding(NSUTF8StringEncoding)!
         
@@ -38,6 +38,47 @@ class HttpRequest{
         
     }
 
+    init(url: String, postData: NSDictionary){
+        self.request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        self.request.HTTPMethod = self.httpType
+
+        let boundary = self.generateBoundary()
+        self.setMultipart(boundary)
+        self.accetpJSON()
+        self.request.HTTPBody = self.createRequestBody(postData, boundary: boundary)
+    }
+    
+    func createRequestBody(parameters: NSDictionary, boundary: String) -> NSMutableData{
+        let body  = NSMutableData()
+        
+        for(key , value) in parameters{
+            
+            body.appendString("--\(boundary)\r\n")
+            
+            if value is String{
+                
+                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString("\(value)\r\n")
+                
+            }else if value is JPEG{
+                
+                let img = value as! JPEG
+                
+                body.appendString("Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(img.fileName)\"\r\n")
+                body.appendString("Content-Type: \(img.mimeType)\r\n\r\n")
+                body.appendData(img.imageData)
+                body.appendString("\r\n")
+                    
+                
+            }
+        }
+        
+        body.appendString("--\(boundary)--\r\n")
+        
+        return body
+        
+    }
+    
     func createRequestBody(parameters: [String: String]?, boundary: String) -> NSMutableData{
         let body = NSMutableData()
         
@@ -63,7 +104,7 @@ class HttpRequest{
         self.request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField:"Content-Type")
     }
     
-    func urlEncoded(){
+    func setUrlEncoded(){
         self.request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     }
     
@@ -73,7 +114,7 @@ class HttpRequest{
         return self.request
     }
     
-    func generateBoundary() ->String{
+    private func generateBoundary() ->String{
         return "Boundary-\(NSUUID().UUIDString)"
     }
 }

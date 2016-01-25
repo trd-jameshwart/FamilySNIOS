@@ -130,28 +130,22 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
 
     func uploadImageChoosen(){
         if let userid = NSUserDefaults.standardUserDefaults().stringForKey("user_id") {
-            
-            let request:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: Globals.API_URL+"/service/image.php")!)
+ 
             print(userid)
-            request.HTTPMethod = "POST"
-            let boundary = generateBoundaryString()
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField:"Content-Type")
-            
+
             let imageData = UIImageJPEGRepresentation(self.ProFileImage.image!, 1)
             
-            if imageData == nil{
-                return
-            }
-            let param = [
-                "firstName"  : "Felman",
-                "userId"  : userid
+            let postData = [
+                "firstName" : "Felman",
+                "file"      : JPEG(img: imageData!),
+                "userId"    : userid
             ]
             
+            let strUrl = Globals.API_URL+"/service/image.php"
+       
+            let requestData = HttpRequest(url: strUrl, postData: postData).getRequest()
             
-            
-            request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
-            
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(requestData){
                 data, response, error in
                 
                 if error != nil{
