@@ -256,6 +256,7 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         if indexPath.section == 0{
         
             if indexPath.row == 1{
+                
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //Hide label Email and show textfield Email
                 self.lblEmail.hidden = true
@@ -265,11 +266,13 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
                 
                 
             } else if indexPath.row == 2{
+                
                 //Hide label Password and show textfield Email
                 self.lblPassword.hidden = true
                 self.txtPassword.becomeFirstResponder()
                 self.txtPassword.hidden = false
                 self.btnCancelPassword.hidden = false
+                
             } else  if indexPath.row == 3{
                 
                 logOut()
