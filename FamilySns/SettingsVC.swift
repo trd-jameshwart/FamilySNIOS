@@ -19,6 +19,12 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var btnCancel: UIButton!
     
+    
+    
+    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var lblPassword: UILabel!
+    @IBOutlet weak var btnCancelPassword: UIButton!
+    
     override func viewDidLoad() {
         self.tabBarItem.selectedImage = UIImage(named: "Settings_w")?.imageWithRenderingMode(.AlwaysOriginal)
 
@@ -47,8 +53,19 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         self.btnCancel.hidden = true
         
         
+        self.txtPassword.hidden = true
+        self.txtPassword.delegate = self
+        self.btnCancelPassword.hidden = true
+        
 //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("dismissKeyBoard"))
 //        view.addGestureRecognizer(tap)
+    }
+    
+    @IBAction func cancelUpdatePassword(sender: AnyObject) {
+        self.txtPassword.hidden = true
+        self.btnCancelPassword.hidden = true
+        self.lblPassword.hidden = false
+        self.view.endEditing(true)
     }
     
     @IBAction func cancelUpdateEmailTapped(sender: AnyObject) {
@@ -61,12 +78,76 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        self.txtEmail.resignFirstResponder()
-        self.txtEmail.hidden = true
-        self.btnCancel.hidden = true
-        self.lblEmail.text = self.txtEmail.text
-        self.lblEmail.hidden = false
-        self.view.endEditing(true)
+        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+
+        if let userId = defaults.stringForKey("user_id"){
+        
+            self.view.endEditing(true)
+        
+            let email = self.txtEmail.text!
+            let strUrl = Globals.API_URL+"/service/user.php"
+            
+            var param = [
+                "id"        : userId,
+                "email"     : email
+            ]
+            //If Email is the textfield
+            if 1 == textField.tag {
+                
+                self.txtEmail.resignFirstResponder()
+                self.txtEmail.hidden = true
+                self.btnCancel.hidden = true
+                self.lblEmail.hidden = false
+                self.lblEmail.text = self.txtEmail.text
+                
+            //If Password is the textfield
+            }else if 2 == textField.tag {
+                self.txtPassword.resignFirstResponder()
+                self.txtPassword.hidden = true
+                self.btnCancelPassword.hidden = true
+                self.lblPassword.hidden = false
+                
+                let password = self.txtPassword.text!
+                param = [
+                    "id"        : userId,
+                    "password"  : password
+                ]
+            }
+            
+            let request = HttpRequest(url: strUrl, postData: param).getRequest()
+            
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){
+               data, response, error in
+                
+                if error != nil{
+                  return
+                }
+                
+                if let httpResponse = response as? NSHTTPURLResponse{
+                
+                    if httpResponse.statusCode == 200{
+                        do {
+                            let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String: AnyObject]
+                            
+                            if let result = json["result"] as? Bool{
+                                print(result)
+                                if (result == true){
+                                 print(self.lblEmail.text!)
+                                }
+                                                
+                            }
+                                            
+                        } catch let err as NSError {
+                        print("JSON error: \(err.localizedDescription)")
+                        }
+                    }
+                }
+                
+
+            }
+            
+            task.resume()
+        }
         
         print("Saving textfield data should be here")
         return true
@@ -101,7 +182,7 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
             (action: UIAlertAction) in
             
             print("Upload from Library")
-            self.setProfilePicture("photo_library")
+            self.selectImage("photo")
             
         })
 
@@ -109,7 +190,7 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
             (action: UIAlertAction) in
  
             print("Take a photo")
-            self.setProfilePicture("camera")
+            self.selectImage("camera")
         })
         
         let ActionCancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
@@ -124,34 +205,26 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         self.presentViewController(profileAlertController, animated: true, completion: nil)
     }
     
-    func generateBoundaryString() -> String {
-        return "Boundary-\(NSUUID().UUIDString)"
-    }
+    
 
     func uploadImageChoosen(){
         if let userid = NSUserDefaults.standardUserDefaults().stringForKey("user_id") {
-            
-            let request:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: Globals.API_URL+"/service/image.php")!)
+ 
             print(userid)
-            request.HTTPMethod = "POST"
-            let boundary = generateBoundaryString()
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField:"Content-Type")
-            
+
             let imageData = UIImageJPEGRepresentation(self.ProFileImage.image!, 1)
             
-            if imageData == nil{
-                return
-            }
-            let param = [
-                "firstName"  : "Felman",
-                "userId"  : userid
+            let postData = [
+                "firstName" : "Felman",
+                "file"      : JPEG(img: imageData!),
+                "userId"    : userid
             ]
             
+            let strUrl = Globals.API_URL+"/service/image.php"
+       
+            let requestData = HttpRequest(url: strUrl, postData: postData).getRequest()
             
-            
-            request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
-            
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(requestData){
                 data, response, error in
                 
                 if error != nil{
@@ -176,53 +249,6 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         
     }
     
-    func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
-        let body = NSMutableData();
-        
-        if parameters != nil {
-            for (key, value) in parameters! {
-                body.appendString("--\(boundary)\r\n")
-                body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-                body.appendString("\(value)\r\n")
-            }
-        }
-        
-        let filename = "user-profile.jpg"
-        
-        let mimetype = "image/jpg"
-        
-        body.appendString("--\(boundary)\r\n")
-        body.appendString("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
-        body.appendString("Content-Type: \(mimetype)\r\n\r\n")
-        body.appendData(imageDataKey)
-        body.appendString("\r\n")
-        
-        
-        
-        body.appendString("--\(boundary)--\r\n")
-        
-        return body
-        
-    }
-    
-    private func setProfilePicture(whereStr: String){
-        
-        let imagePickerController = UIImagePickerController()
-        
-        imagePickerController.delegate = self
-        
-        if whereStr == "camera"{
-           
-            imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
-            
-        } else if whereStr == "photo_library"{
-            imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        }else{
-            imagePickerController
-        }
-        
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
-    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        print("\(indexPath.section)  ===== \(indexPath.row)  ")
@@ -230,6 +256,7 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
         if indexPath.section == 0{
         
             if indexPath.row == 1{
+                tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //Hide label Email and show textfield Email
                 self.lblEmail.hidden = true
                 self.txtEmail.becomeFirstResponder()
@@ -237,79 +264,20 @@ class SettingsVC: UITableViewController,UIImagePickerControllerDelegate, UINavig
                 self.btnCancel.hidden = false
                 
                 
-            } else  if indexPath.row == 2{
+            } else if indexPath.row == 2{
+                //Hide label Password and show textfield Email
+                self.lblPassword.hidden = true
+                self.txtPassword.becomeFirstResponder()
+                self.txtPassword.hidden = false
+                self.btnCancelPassword.hidden = false
+            } else  if indexPath.row == 3{
                 
                 logOut()
             }
         }
         //let cell = tableView.deq
     }
-//    
-//    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//      
-////        let bgColorView = UIView()
-////        bgColorView.backgroundColor = UIColor.whiteColor()
-////        cell.selectedBackgroundView = bgColorView
-//        
-//        if (cell.respondsToSelector(Selector("tintColor"))){
-//            
-//            if (tableView == self.tableView) {
-//                
-//                let cornerRadius : CGFloat = 12.0
-//                cell.backgroundColor = UIColor.clearColor()
-//                let layer: CAShapeLayer = CAShapeLayer()
-//                let pathRef:CGMutablePathRef = CGPathCreateMutable()
-//                let bounds: CGRect = CGRectInset(cell.bounds, 25, 0)
-//                var addLine: Bool = false
-//                
-//                if (indexPath.row == 0 && indexPath.row == tableView.numberOfRowsInSection(indexPath.section)-1) {
-//                    CGPathAddRoundedRect(pathRef, nil, bounds, cornerRadius, cornerRadius)
-//                } else if (indexPath.row == 0) {
-//                    CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds))
-//                    CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds), CGRectGetMidX(bounds), CGRectGetMinY(bounds), cornerRadius)
-//                    CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius)
-//                    CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds))
-//                    addLine = true
-//                    
-//                } else if (indexPath.row == tableView.numberOfRowsInSection(indexPath.section)-1) {
-//                    CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds))
-//                    CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds), CGRectGetMidX(bounds), CGRectGetMaxY(bounds), cornerRadius)
-//                    CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius)
-//                    CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds))
-//                    
-//                } else {
-//                    CGPathAddRect(pathRef, nil, bounds)
-//                    addLine = true
-//                    
-//                }
-//                
-//                layer.path = pathRef
-//                layer.fillColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8).CGColor
-//                
-//                if (addLine == true) {
-//                    let lineLayer: CALayer = CALayer()
-//                    let lineHeight: CGFloat = (1.0 / UIScreen.mainScreen().scale)
-//                    lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+10, bounds.size.height-lineHeight, bounds.size.width-10, lineHeight)
-//                    lineLayer.backgroundColor = tableView.separatorColor!.CGColor
-//                    layer.addSublayer(lineLayer)
-//                }
-//                
-//                let testView: UIView = UIView(frame: bounds)
-//                testView.layer.insertSublayer(layer, atIndex: 0)
-//                testView.backgroundColor = UIColor.clearColor()
-//                cell.backgroundView = testView
-//                
-//                let selectedLayer = CAShapeLayer()
-//                selectedLayer.path = CGPathCreateCopy(pathRef)
-//                selectedLayer.fillColor = UIColor(white: 0.75, alpha: 0.8).CGColor
-//                let selectedView = UIView(frame: bounds)
-//                selectedView.layer.insertSublayer(selectedLayer, atIndex: 0)
-//                selectedView.backgroundColor = UIColor.clearColor()
-//                cell.selectedBackgroundView = selectedView
-//                
-//            }
-//        }
-//    }
+
     
     @IBAction func logOutTapped(sender: UIButton) {
         //Call Log Out

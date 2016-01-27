@@ -60,26 +60,14 @@ class SignupVc: UIViewController {
         }else{
             
             let post = "email=\(email)&password=\(password)&c_password=\(confirmPassword)";
-            //NSLog("Post Data: %@", post)
             
-            let url:NSURL = NSURL(string: Globals.API_URL+"/service/signup.php")!
+            let url = Globals.API_URL+"/service/signup.php"
+        
+            let request = HttpRequest(url: url, postData: post).getRequest()
             
-            let postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-            
-            let postLength:NSString = String( postData.length )
-            
-            let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-            
-            request.HTTPMethod = "POST"
-            request.HTTPBody = postData
-            request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
             
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request){data, response, error in
-
+                print("sign up")
                 if error != nil {
 
                     if let err = error{
@@ -95,6 +83,7 @@ class SignupVc: UIViewController {
                     if(httpResponse.statusCode == 200){
 
                         let json = JSON(data: data!)
+                        print(json)
                         if json["OK"] == true{
 
                             dispatch_async(dispatch_get_main_queue(), {
