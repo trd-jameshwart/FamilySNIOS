@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class JPEG{
 
     let mimeType    = "image/jpg"
@@ -18,7 +17,6 @@ class JPEG{
     let imageData:NSData
     
     init(img: NSData){
-      
         let dateStr = NSDate().time()
         
         self.fileName = "img_\(dateStr)"+self.ext
